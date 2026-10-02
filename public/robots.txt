@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nexosites.vercel.app/sitemap.xml
