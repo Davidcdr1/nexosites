@@ -1,166 +1,83 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
-type Demo = "restaurant" | "hair" | "consulting";
+const services = [
+  ["01", "Webs para negocios", "Una presencia online profesional para que tus clientes te encuentren y contacten contigo."],
+  ["02", "Diseño responsive", "Tu web se adapta perfectamente a móvil, tablet y ordenador."],
+  ["03", "Web rápida y moderna", "Tecnología actual para ofrecer una experiencia fluida y profesional."],
+  ["04", "Formularios de contacto", "Recibe solicitudes y consultas directamente de tus clientes."],
+  ["05", "SEO básico", "Estructura y contenidos preparados para que Google pueda entender tu negocio."],
+  ["06", "Publicación y mantenimiento", "Te ayudo a poner tu web online y a mantenerla actualizada."],
+];
 
-const whatsapp = "https://wa.me/34610995594";
+const types = ["Restaurante", "Comercio", "Profesional / autónomo", "Peluquería / estética", "Empresa", "Otro"];
 
-const demos: Record<Demo, {
-  title: string;
-  eyebrow: string;
-  description: string;
-  accent: string;
-}> = {
-  restaurant: {
-    title: "Brasa & Olivo",
-    eyebrow: "Restaurante mediterráneo",
-    description: "Una demo de web para restaurante, pensada para enseñar carta, ambiente y reservas de forma rápida.",
-    accent: "restaurant",
-  },
-  hair: {
-    title: "Studio Hair",
-    eyebrow: "Peluquería & belleza",
-    description: "Una demo orientada a mostrar servicios, precios y facilitar la reserva de una cita desde el móvil.",
-    accent: "hair",
-  },
-  consulting: {
-    title: "Martín Consultoría",
-    eyebrow: "Consultoría profesional",
-    description: "Una demo limpia y profesional para presentar servicios, experiencia y facilitar el contacto.",
-    accent: "consulting",
-  },
-};
+const demos = [
+  { type: "RESTAURANTE · PROYECTO DEMO", title: "Brasa & Olivo", text: "Carta, reservas y una imagen cuidada para un restaurante local.", className: "demo-restaurant" },
+  { type: "PELUQUERÍA · PROYECTO DEMO", title: "Studio Hair", text: "Servicios, galería y contacto directo por WhatsApp.", className: "demo-hair" },
+  { type: "PROFESIONAL · PROYECTO DEMO", title: "Martín Consultoría", text: "Una web clara para explicar servicios y generar consultas.", className: "demo-pro" },
+];
 
-function DemoSite({ type, onBack }: { type: Demo; onBack: () => void }) {
-  const d = demos[type];
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  return (
-    <div className={`demo-site demo-${d.accent}`}>
-      <header className="demo-header">
-        <button className="demo-back" onClick={onBack}>← Volver a NexoSites</button>
-        <div className="demo-brand">{d.title}</div>
-        <button className="demo-menu" onClick={() => setMenuOpen(!menuOpen)} aria-label="Abrir menú">☰</button>
-        <nav className={menuOpen ? "demo-nav open" : "demo-nav"}>
-          <a href="#servicios" onClick={() => setMenuOpen(false)}>Servicios</a>
-          <a href="#sobre" onClick={() => setMenuOpen(false)}>Sobre nosotros</a>
-          <a href="#contacto" onClick={() => setMenuOpen(false)}>Contacto</a>
-        </nav>
-      </header>
-
-      {type === "restaurant" && (
-        <>
-          <section className="demo-hero">
-            <span>{d.eyebrow}</span>
-            <h1>Sabores mediterráneos<br />hechos para compartir.</h1>
-            <p>Cocina de producto, brasas y una carta pensada para disfrutar sin prisas.</p>
-            <div className="demo-actions">
-              <a href="#reservas" className="demo-button">Reservar mesa</a>
-              <a href="#carta" className="demo-button secondary">Ver carta</a>
-            </div>
-          </section>
-          <section id="carta" className="demo-section">
-            <span className="demo-kicker">Nuestra carta</span>
-            <h2>Platos que hablan por sí solos</h2>
-            <div className="demo-grid three">
-              <article><strong>Brasa</strong><p>Entrecot, verduras de temporada y pescado del día.</p><b>Desde 14 €</b></article>
-              <article><strong>Para compartir</strong><p>Hummus, croquetas caseras, burrata y más.</p><b>Desde 8 €</b></article>
-              <article><strong>Dulce final</strong><p>Tarta de queso, chocolate y postres de temporada.</p><b>Desde 6 €</b></article>
-            </div>
-          </section>
-          <section id="reservas" className="demo-highlight">
-            <div><span className="demo-kicker">Reservas</span><h2>¿Nos vemos esta semana?</h2><p>Reserva tu mesa en unos segundos.</p><a className="demo-button" href={whatsapp} target="_blank" rel="noreferrer">Reservar por WhatsApp</a></div>
-          </section>
-        </>
-      )}
-
-      {type === "hair" && (
-        <>
-          <section className="demo-hero">
-            <span>{d.eyebrow}</span>
-            <h1>Tu estilo.<br />Tu momento.</h1>
-            <p>Corte, color y cuidado personalizado en un espacio pensado para ti.</p>
-            <div className="demo-actions"><a href="#servicios" className="demo-button">Ver servicios</a><a href={whatsapp} target="_blank" rel="noreferrer" className="demo-button secondary">Pedir cita</a></div>
-          </section>
-          <section id="servicios" className="demo-section">
-            <span className="demo-kicker">Servicios</span><h2>Todo para sentirte bien</h2>
-            <div className="demo-grid three">
-              <article><strong>Corte & styling</strong><p>Asesoramiento, corte y acabado adaptado a tu estilo.</p><b>Desde 25 €</b></article>
-              <article><strong>Color</strong><p>Coloración, mechas y técnicas personalizadas.</p><b>Desde 45 €</b></article>
-              <article><strong>Tratamientos</strong><p>Cuidados intensivos para recuperar brillo y suavidad.</p><b>Desde 30 €</b></article>
-            </div>
-          </section>
-          <section id="sobre" className="demo-highlight"><div><span className="demo-kicker">Studio Hair</span><h2>Un espacio para ti</h2><p>Trabajamos con cita previa y dedicamos tiempo a entender lo que buscas.</p><a className="demo-button" href={whatsapp} target="_blank" rel="noreferrer">Reservar cita</a></div></section>
-        </>
-      )}
-
-      {type === "consulting" && (
-        <>
-          <section className="demo-hero">
-            <span>{d.eyebrow}</span>
-            <h1>Decisiones claras.<br />Negocios que avanzan.</h1>
-            <p>Ayudamos a pequeñas empresas a ordenar procesos, estrategia y crecimiento.</p>
-            <div className="demo-actions"><a href="#servicios" className="demo-button">Cómo podemos ayudarte</a><a href="#contacto" className="demo-button secondary">Contactar</a></div>
-          </section>
-          <section id="servicios" className="demo-section"><span className="demo-kicker">Servicios</span><h2>Experiencia práctica para tu negocio</h2>
-            <div className="demo-grid three">
-              <article><strong>Estrategia</strong><p>Objetivos, prioridades y un plan de acción realista.</p></article>
-              <article><strong>Procesos</strong><p>Organización y mejora de procesos para trabajar mejor.</p></article>
-              <article><strong>Digitalización</strong><p>Herramientas y soluciones digitales adaptadas a tu empresa.</p></article>
-            </div>
-          </section>
-          <section id="sobre" className="demo-highlight"><div><span className="demo-kicker">Experiencia</span><h2>Una visión sencilla y orientada a resultados</h2><p>Un ejemplo de cómo una web profesional puede transmitir confianza y explicar servicios de forma clara.</p></div></section>
-        </>
-      )}
-
-      <section id="contacto" className="demo-contact">
-        <span className="demo-kicker">Contacto</span>
-        <h2>Hablemos de tu proyecto</h2>
-        <p>Esta es una demo ficticia creada por NexoSites.</p>
-        <a className="demo-button" href={whatsapp} target="_blank" rel="noreferrer">Contactar por WhatsApp</a>
-      </section>
-      <footer className="demo-footer">Proyecto demo creado por <button onClick={onBack}>NexoSites</button></footer>
-    </div>
-  );
-}
+const prices = [
+  { name: "Web Esencial", price: "399 €", text: "Para tener una presencia profesional en Internet.", items: ["Página responsive", "Diseño personalizado", "Formulario de contacto", "SEO básico", "Publicación online"] },
+  { name: "Web Negocio", price: "699 €", text: "Para negocios que necesitan una web más completa.", items: ["Hasta 5 secciones/páginas", "Diseño personalizado", "Formulario + WhatsApp", "SEO básico", "Publicación online", "1 ronda de ajustes"] },
+  { name: "Web a medida", price: "999 €", text: "Para proyectos con necesidades específicas.", items: ["Estructura a medida", "Funcionalidades personalizadas", "Formulario + WhatsApp", "SEO técnico inicial", "Publicación online", "Acompañamiento"] },
+];
 
 export default function App() {
-  const [demo, setDemo] = useState<Demo | null>(null);
-  if (demo) return <DemoSite type={demo} onBack={() => setDemo(null)} />;
+  const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  return (
-    <div className="site">
-      <header className="nav">
-        <a className="brand" href="#inicio"><span className="brand-mark">N</span><span>NexoSites</span></a>
-        <nav><a href="#servicios">Servicios</a><a href="#portfolio">Portfolio</a><a href="#precios">Precios</a><a href="#contacto">Contacto</a></nav>
-        <a className="nav-cta" href={whatsapp} target="_blank" rel="noreferrer">WhatsApp</a>
-      </header>
+  async function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
+    const f = e.currentTarget;
+    const d = Object.fromEntries(new FormData(f).entries());
+    try {
+      const r = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(d) });
+      if (!r.ok) throw Error();
+      setSent(true);
+      f.reset();
+    } catch {
+      alert("No se ha podido enviar. Escríbeme directamente por email o WhatsApp.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
-      <main>
-        <section id="inicio" className="hero">
-          <div className="hero-copy">
-            <span className="eyebrow">Diseño web para pequeños negocios</span>
-            <h1>Una web profesional para que tu negocio <em>crezca.</em></h1>
-            <p>Creo páginas web rápidas, modernas y adaptadas a móvil para autónomos y pequeñas empresas.</p>
-            <div className="hero-actions"><a className="button" href="#contacto">Pedir presupuesto</a><a className="text-link" href="#portfolio">Ver demos →</a></div>
-          </div>
-          <div className="hero-card"><div className="browser"><span></span><span></span><span></span></div><div className="hero-card-content"><div className="mock-line wide"></div><div className="mock-line"></div><div className="mock-grid"><div></div><div></div><div></div></div></div></div>
-        </section>
+  return <main>
+    <nav className="nav">
+      <a className="brand" href="#inicio"><span className="brand-mark">N</span>NexoSites</a>
+      <div className="navlinks">
+        <a href="#servicios">Servicios</a><a href="#portfolio">Portfolio</a><a href="#precios">Precios</a><a href="#proceso">Cómo trabajo</a>
+        <a href="#contacto" className="navcta">Pedir presupuesto</a>
+      </div>
+    </nav>
 
-        <section id="servicios" className="section"><div className="section-heading"><span className="eyebrow">Qué hago</span><h2>Todo lo que necesitas para tener presencia online.</h2></div><div className="cards three"><article><b>01</b><h3>Web corporativa</h3><p>Una web clara y profesional para presentar tu negocio y generar confianza.</p></article><article><b>02</b><h3>Web para negocio</h3><p>Servicios, horarios, contacto, WhatsApp y todo lo necesario para captar clientes.</p></article><article><b>03</b><h3>Web a medida</h3><p>Funcionalidades específicas cuando tu proyecto necesita algo más.</p></article></div></section>
+    <section id="inicio" className="hero">
+      <div>
+        <p className="eyebrow">DISEÑO WEB PARA NEGOCIOS</p>
+        <h1>Tu negocio merece una web <em>que funcione.</em></h1>
+        <p className="lead">Creo páginas web modernas, rápidas y adaptadas a móviles para ayudarte a mostrar tu negocio y conseguir nuevos clientes.</p>
+        <div className="actions"><a className="button primary" href="#contacto">Cuéntame tu idea <span>→</span></a><a className="button ghost" href="#portfolio">Ver demos</a></div>
+        <div className="trust">✓ Diseño personalizado　✓ Responsive　✓ Sin permanencias</div>
+      </div>
+      <div className="hero-card"><div className="browser"><div className="dots"><i/><i/><i/></div><div className="screen"><div className="mini-logo">N</div><div className="screen-title">Tu negocio,<br/><strong>online.</strong></div><div className="screen-line"/><div className="screen-line short"/><div className="screen-button">Contactar</div></div></div><div className="phone"><div className="phone-top"/><div className="phone-content"><b>NexoSites</b><span>Tu web, en cualquier pantalla.</span><small>DESCUBRIR →</small></div></div></div>
+    </section>
 
-        <section id="portfolio" className="section portfolio-section"><div className="section-heading"><span className="eyebrow">Portfolio</span><h2>Ejemplos de webs que puedo crear.</h2><p className="section-lead">Son proyectos ficticios para que puedas ver distintos estilos y posibilidades.</p></div>
-          <div className="portfolio-grid">
-            <article className="portfolio-card restaurant"><div className="portfolio-preview"><small>PROYECTO DEMO</small><strong>Brasa<br />& Olivo</strong><span>Restaurante mediterráneo</span></div><div className="portfolio-info"><h3>Brasa & Olivo</h3><p>Restaurante · Carta · Reservas</p><button onClick={() => setDemo("restaurant")}>Ver demo →</button></div></article>
-            <article className="portfolio-card hair"><div className="portfolio-preview"><small>PROYECTO DEMO</small><strong>Studio<br />Hair</strong><span>Peluquería & belleza</span></div><div className="portfolio-info"><h3>Studio Hair</h3><p>Peluquería · Servicios · Citas</p><button onClick={() => setDemo("hair")}>Ver demo →</button></div></article>
-            <article className="portfolio-card consulting"><div className="portfolio-preview"><small>PROYECTO DEMO</small><strong>Martín<br />Consultoría</strong><span>Servicios profesionales</span></div><div className="portfolio-info"><h3>Martín Consultoría</h3><p>Consultoría · Servicios · Contacto</p><button onClick={() => setDemo("consulting")}>Ver demo →</button></div></article>
-          </div>
-        </section>
+    <section id="servicios" className="section"><div className="section-head"><p className="eyebrow">LO QUE PUEDO HACER POR TI</p><h2>Una web pensada para tu negocio.</h2><p>No necesitas una web complicada. Necesitas una web clara, profesional y que facilite que tus clientes contacten contigo.</p></div><div className="service-grid">{services.map(([n,t,d])=><article className="service" key={n}><span>{n}</span><h3>{t}</h3><p>{d}</p></article>)}</div></section>
 
-        <section id="precios" className="section pricing"><div className="section-heading"><span className="eyebrow">Precios</span><h2>Planes sencillos, sin complicaciones.</h2></div><div className="pricing-grid"><article><h3>Web Esencial</h3><strong>399 €</strong><p>Landing profesional, responsive, contacto y puesta en marcha.</p><a href="#contacto">Solicitar →</a></article><article className="featured"><span>Más solicitado</span><h3>Web Negocio</h3><strong>699 €</strong><p>Web completa con varias secciones, WhatsApp, portfolio y optimización básica.</p><a href="#contacto">Solicitar →</a></article><article><h3>Web a medida</h3><strong>999 €</strong><p>Proyecto personalizado con funcionalidades específicas.</p><a href="#contacto">Solicitar →</a></article></div><p className="price-note">Precios orientativos. El precio final depende de las funcionalidades y contenidos necesarios.</p></section>
+    <section id="portfolio" className="section portfolio"><div className="section-head"><p className="eyebrow">PORTFOLIO</p><h2>Tres ejemplos de lo que podemos crear.</h2><p>Son proyectos conceptuales para mostrar estilos y posibilidades. No corresponden a clientes reales.</p></div><div className="demo-grid">{demos.map(d=><article className={`demo-card ${d.className}`} key={d.title}><div className="demo-browser"><div className="demo-top"><i/><i/><i/></div><div className="demo-screen"><small>{d.type}</small><h3>{d.title}</h3><p>{d.text}</p><span>Descubrir →</span></div></div><div className="demo-caption"><strong>{d.title}</strong><span>Proyecto demo</span></div></article>)}</div></section>
 
-        <section id="contacto" className="contact-section"><div><span className="eyebrow">Hablemos</span><h2>Cuéntame qué necesitas.</h2><p>Explícame tu idea y te respondo con una propuesta sin compromiso.</p><a className="button" href={whatsapp} target="_blank" rel="noreferrer">Escribir por WhatsApp</a></div><form onSubmit={(e) => { e.preventDefault(); alert("El formulario de presupuesto sigue conectado a tu API de Resend."); }}><input placeholder="Nombre" required /><input type="email" placeholder="Email" required /><input placeholder="Negocio" /><textarea placeholder="Cuéntame tu proyecto" rows={5}></textarea><button className="button" type="submit">Solicitar presupuesto</button></form></section>
-      </main>
-      <footer className="footer"><span>© 2026 NexoSites · David Cuenca del Río</span><span><a href="/aviso-legal.html">Aviso legal</a> · <a href="/privacidad.html">Privacidad</a> · <a href="/cookies.html">Cookies</a></span></footer>
-    </div>
-  );
+    <section id="precios" className="section pricing"><div className="section-head"><p className="eyebrow">PRECIOS ORIENTATIVOS</p><h2>Una referencia clara para empezar.</h2><p>El precio final depende de las funcionalidades, páginas y contenidos necesarios para cada proyecto.</p></div><div className="price-grid">{prices.map((p,i)=><article className={`price-card ${i===1?"featured":""}`} key={p.name}>{i===1&&<span className="popular">MÁS SOLICITADA</span>}<h3>{p.name}</h3><div className="price">desde <strong>{p.price}</strong></div><p>{p.text}</p><ul>{p.items.map(item=><li key={item}>✓ {item}</li>)}</ul><a className="button ghost price-button" href="#contacto">Consultar</a></article>)}</div></section>
+
+    <section className="audience"><div><p className="eyebrow">PARA QUIÉN</p><h2>Si tienes un negocio,<br/>podemos crear tu web.</h2></div><div className="pills">{types.map(t=><span key={t}>{t}</span>)}</div></section>
+
+    <section id="proceso" className="section"><div className="section-head"><p className="eyebrow">EL PROCESO</p><h2>De tu idea a Internet.</h2></div><div className="steps">{[["01","Me cuentas tu idea","Rellenas el formulario y me explicas qué necesitas."],["02","Preparamos la propuesta","Te explico qué haría, cuánto cuesta y los plazos."],["03","Creo tu web","Diseño y desarrollo una web adaptada a tu negocio."],["04","La ponemos online","Publicamos tu web y te dejo todo preparado."]].map(([n,t,d])=><div key={n}><b>{n}</b><h3>{t}</h3><p>{d}</p></div>)}</div></section>
+
+    <section id="contacto" className="contact"><div className="contact-copy"><p className="eyebrow">HABLEMOS</p><h2>Cuéntame qué tienes en mente.</h2><p>No necesitas tenerlo todo decidido. Explícame tu negocio y la idea que tienes para tu web. Te responderé con una propuesta.</p><div className="contact-links"><a href="mailto:dcuencadelrio@gmail.com">✉ dcuencadelrio@gmail.com</a><a href="https://wa.me/34610995594" target="_blank" rel="noreferrer">💬 WhatsApp: 610 995 594</a></div></div><div className="form-wrap">{sent?<div className="success"><div>✓</div><h3>¡Solicitud enviada!</h3><p>He recibido tu idea. Te contactaré lo antes posible.</p><button className="button primary" onClick={()=>setSent(false)}>Enviar otra solicitud</button></div>:<form onSubmit={submit}><input name="website" className="honeypot" tabIndex={-1} autoComplete="off"/><label>Nombre<input required name="name" placeholder="Tu nombre"/></label><div className="two"><label>Email<input required type="email" name="email" placeholder="tu@email.com"/></label><label>Teléfono<input name="phone" placeholder="Opcional"/></label></div><label>Tipo de negocio<select name="business"><option value="">Selecciona una opción</option>{types.map(t=><option key={t}>{t}</option>)}</select></label><label>Presupuesto aproximado<select name="budget"><option>Prefiero hablarlo</option><option>Menos de 500 €</option><option>500 – 1.000 €</option><option>1.000 – 2.000 €</option><option>Más de 2.000 €</option></select></label><label>Cuéntame tu idea<textarea required name="message" rows={5} placeholder="¿Qué tipo de web necesitas? ¿Qué quieres que pueda hacer?"/></label><label className="privacy-check"><input required type="checkbox" name="privacy" value="informado"/> <span>He leído la <a href="/privacidad.html" target="_blank" rel="noreferrer">información sobre protección de datos</a>.</span></label><p className="form-note">Tus datos se utilizarán para responder a tu solicitud de presupuesto. No se usarán para enviarte publicidad sin una base legal adecuada.</p><button disabled={loading} className="button primary submit">{loading?"Enviando...":"Solicitar presupuesto →"}</button></form>}</div></section>
+
+    <a className="whatsapp-float" href="https://wa.me/34610995594" target="_blank" rel="noreferrer" aria-label="Contactar con NexoSites por WhatsApp">💬<span>WhatsApp</span></a>
+
+    <footer><div className="brand"><span className="brand-mark">N</span>NexoSites</div><p>Webs modernas para negocios que quieren crecer.</p><div className="footer-links"><a href="/aviso-legal.html">Aviso legal</a><a href="/privacidad.html">Privacidad</a><a href="/cookies.html">Cookies</a></div><small>© 2026 NexoSites</small></footer>
+  </main>;
 }
