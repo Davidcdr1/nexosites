@@ -101,6 +101,6 @@ export default function App() {
 
     <footer><div className="brand"> <a className="brand" href="#inicio">
         <img src="/nexosites-logo.png" alt="NexoSites" />
-      </a>NexoSites</div><p>Webs modernas para negocios que quieren crecer.</p><div className="footer-links"><a href="/aviso-legal.html">Aviso legal</a><a href="/privacidad.html">Privacidad</a><a href="/cookies.html">Cookies</a></div><small>© 2026 NexoSites</small></footer>
+      </a></div><p>Webs modernas para negocios que quieren crecer.</p><div className="footer-links"><a href="/aviso-legal.html">Aviso legal</a><a href="/privacidad.html">Privacidad</a><a href="/cookies.html">Cookies</a></div><small>© 2026 NexoSites</small></footer>
   </main>;
 }
