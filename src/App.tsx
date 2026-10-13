@@ -84,7 +84,63 @@ export default function App() {
 
     <section id="servicios" className="section"><div className="section-head"><p className="eyebrow">LO QUE PUEDO HACER POR TI</p><h2>Una web pensada para tu negocio.</h2><p>No necesitas una web complicada. Necesitas una web clara, profesional y que facilite que tus clientes contacten contigo.</p></div><div className="service-grid">{services.map(([n, t, d]) => <article className="service" key={n}><span>{n}</span><h3>{t}</h3><p>{d}</p></article>)}</div></section>
 
-    <section id="portfolio" className="section portfolio"><div className="section-head"><p className="eyebrow">PORTFOLIO</p><h2>Tres ejemplos de lo que podemos crear.</h2><p>Son proyectos conceptuales para mostrar estilos y posibilidades. No corresponden a clientes reales.</p></div><div className="demo-grid">{demos.map(d => <article className={`demo-card ${d.className}`} key={d.title}><div className="demo-browser"><div className="demo-top"><i /><i /><i /></div><div className="demo-screen"><small>{d.type}</small><h3>{d.title}</h3><p>{d.text}</p><span>Descubrir →</span></div></div><div className="demo-caption"><strong>{d.title}</strong><span>Proyecto demo</span></div></article>)}</div></section>
+    <section id="portfolio" className="section portfolio"><div className="section-head"><p className="eyebrow">PORTFOLIO</p><h2>Tres ejemplos de lo que podemos crear.</h2><p>Son proyectos conceptuales para mostrar estilos y posibilidades. No corresponden a clientes reales.</p></div><div className="demo-grid">{demos.map(d => <article
+  className={`demo-card ${d.className}`}
+  key={d.title}
+>
+  {d.url ? (
+    <a
+      href={d.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Visitar la demo de ${d.title}`}
+      style={{
+        display: "block",
+        color: "inherit",
+        textDecoration: "none",
+        cursor: "pointer",
+      }}
+    >
+      <div className="demo-browser">
+        <div className="demo-top">
+          <i />
+          <i />
+          <i />
+        </div>
+        <div className="demo-screen">
+          <small>{d.type}</small>
+          <h3>{d.title}</h3>
+          <p>{d.text}</p>
+          <span>Descubrir →</span>
+        </div>
+      </div>
+      <div className="demo-caption">
+        <strong>{d.title}</strong>
+        <span>Ver proyecto ↗</span>
+      </div>
+    </a>
+  ) : (
+    <>
+      <div className="demo-browser">
+        <div className="demo-top">
+          <i />
+          <i />
+          <i />
+        </div>
+        <div className="demo-screen">
+          <small>{d.type}</small>
+          <h3>{d.title}</h3>
+          <p>{d.text}</p>
+          <span>Descubrir →</span>
+        </div>
+      </div>
+      <div className="demo-caption">
+        <strong>{d.title}</strong>
+        <span>Proyecto demo</span>
+      </div>
+    </>
+  )}
+</article>)}</div></section>
 
     <section id="precios" className="section pricing"><div className="section-head"><p className="eyebrow">PRECIOS ORIENTATIVOS</p><h2>Una referencia clara para empezar.</h2><p>El precio final depende de las funcionalidades, páginas y contenidos necesarios para cada proyecto.</p></div><div className="price-grid">{prices.map((p, i) => <article className={`price-card ${i === 1 ? "featured" : ""}`} key={p.name}>{i === 1 && <span className="popular">MÁS SOLICITADA</span>}<h3>{p.name}</h3><div className="price">desde <strong>{p.price}</strong></div><p>{p.text}</p><ul>{p.items.map(item => <li key={item}>✓ {item}</li>)}</ul><a className="button ghost price-button" href="#contacto">Consultar</a></article>)}</div></section>
 
