@@ -79,68 +79,86 @@ export default function App() {
         <div className="actions"><a className="button primary" href="#contacto">Cuéntame tu idea <span>→</span></a><a className="button ghost" href="#portfolio">Ver demos</a></div>
         <div className="trust">✓ Diseño personalizado　✓ Responsive　✓ Sin permanencias</div>
       </div>
-      <div className="hero-card"><div className="browser"><div className="dots"><i /><i /><i /></div><div className="screen"><div className="mini-logo">N</div><div className="screen-title">Tu negocio,<br /><strong>online.</strong></div><div className="screen-line" /><div className="screen-line short" /><div className="screen-button">Contactar</div></div></div><div className="phone"><div className="phone-top" /><div className="phone-content"><b>NexoSites</b><span>Tu web, en cualquier pantalla.</span></div></div></div>
+      <div className="hero-card hero-showcase">
+        <a
+          href="https://brasa-olivo.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hero-showcase-link"
+          aria-label="Visitar la demo de Brasa & Olivo"
+        >
+          <img
+            src="/brasa-olivo-mockup.png"
+            alt="Brasa & Olivo: ejemplo de diseño web adaptado a ordenador y móvil"
+            className="hero-showcase-image"
+          />
+        </a>
+
+        <p className="hero-showcase-caption">
+          Tu web, en cualquier pantalla.
+        </p>
+      </div>
     </section>
 
     <section id="servicios" className="section"><div className="section-head"><p className="eyebrow">LO QUE PUEDO HACER POR TI</p><h2>Una web pensada para tu negocio.</h2><p>No necesitas una web complicada. Necesitas una web clara, profesional y que facilite que tus clientes contacten contigo.</p></div><div className="service-grid">{services.map(([n, t, d]) => <article className="service" key={n}><span>{n}</span><h3>{t}</h3><p>{d}</p></article>)}</div></section>
 
     <section id="portfolio" className="section portfolio"><div className="section-head"><p className="eyebrow">PORTFOLIO</p><h2>Tres ejemplos de lo que podemos crear.</h2><p>Son proyectos conceptuales para mostrar estilos y posibilidades. No corresponden a clientes reales.</p></div><div className="demo-grid">{demos.map(d => <article
-  className={`demo-card ${d.className}`}
-  key={d.title}
->
-  {d.url ? (
-    <a
-      href={d.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={`Visitar la demo de ${d.title}`}
-      style={{
-        display: "block",
-        color: "inherit",
-        textDecoration: "none",
-        cursor: "pointer",
-      }}
+      className={`demo-card ${d.className}`}
+      key={d.title}
     >
-      <div className="demo-browser">
-        <div className="demo-top">
-          <i />
-          <i />
-          <i />
-        </div>
-        <div className="demo-screen">
-          <small>{d.type}</small>
-          <h3>{d.title}</h3>
-          <p>{d.text}</p>
-          <span>Descubrir →</span>
-        </div>
-      </div>
-      <div className="demo-caption">
-        <strong>{d.title}</strong>
-        <span>Ver proyecto ↗</span>
-      </div>
-    </a>
-  ) : (
-    <>
-      <div className="demo-browser">
-        <div className="demo-top">
-          <i />
-          <i />
-          <i />
-        </div>
-        <div className="demo-screen">
-          <small>{d.type}</small>
-          <h3>{d.title}</h3>
-          <p>{d.text}</p>
-          <span>Descubrir →</span>
-        </div>
-      </div>
-      <div className="demo-caption">
-        <strong>{d.title}</strong>
-        <span>Proyecto demo</span>
-      </div>
-    </>
-  )}
-</article>)}</div></section>
+      {d.url ? (
+        <a
+          href={d.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Visitar la demo de ${d.title}`}
+          style={{
+            display: "block",
+            color: "inherit",
+            textDecoration: "none",
+            cursor: "pointer",
+          }}
+        >
+          <div className="demo-browser">
+            <div className="demo-top">
+              <i />
+              <i />
+              <i />
+            </div>
+            <div className="demo-screen">
+              <small>{d.type}</small>
+              <h3>{d.title}</h3>
+              <p>{d.text}</p>
+              <span>Descubrir →</span>
+            </div>
+          </div>
+          <div className="demo-caption">
+            <strong>{d.title}</strong>
+            <span>Ver proyecto ↗</span>
+          </div>
+        </a>
+      ) : (
+        <>
+          <div className="demo-browser">
+            <div className="demo-top">
+              <i />
+              <i />
+              <i />
+            </div>
+            <div className="demo-screen">
+              <small>{d.type}</small>
+              <h3>{d.title}</h3>
+              <p>{d.text}</p>
+              <span>Descubrir →</span>
+            </div>
+          </div>
+          <div className="demo-caption">
+            <strong>{d.title}</strong>
+            <span>Proyecto demo</span>
+          </div>
+        </>
+      )}
+    </article>)}</div></section>
 
     <section id="precios" className="section pricing"><div className="section-head"><p className="eyebrow">PRECIOS ORIENTATIVOS</p><h2>Una referencia clara para empezar.</h2><p>El precio final depende de las funcionalidades, páginas y contenidos necesarios para cada proyecto.</p></div><div className="price-grid">{prices.map((p, i) => <article className={`price-card ${i === 1 ? "featured" : ""}`} key={p.name}>{i === 1 && <span className="popular">MÁS SOLICITADA</span>}<h3>{p.name}</h3><div className="price">desde <strong>{p.price}</strong></div><p>{p.text}</p><ul>{p.items.map(item => <li key={item}>✓ {item}</li>)}</ul><a className="button ghost price-button" href="#contacto">Consultar</a></article>)}</div></section>
 
@@ -172,7 +190,7 @@ export default function App() {
     </a>
 
     <footer><div className="brand"> <a className="brand" href="#inicio">
-        <img src="/nexosites-logo.png" alt="NexoSites" />
-      </a></div><p>Webs modernas para negocios que quieren crecer.</p><div className="footer-links"><a href="/aviso-legal.html">Aviso legal</a><a href="/privacidad.html">Privacidad</a><a href="/cookies.html">Cookies</a></div><small>© 2026 NexoSites</small></footer>
+      <img src="/nexosites-logo.png" alt="NexoSites" />
+    </a></div><p>Webs modernas para negocios que quieren crecer.</p><div className="footer-links"><a href="/aviso-legal.html">Aviso legal</a><a href="/privacidad.html">Privacidad</a><a href="/cookies.html">Cookies</a></div><small>© 2026 NexoSites</small></footer>
   </main>;
 }
