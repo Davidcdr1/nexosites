@@ -74,6 +74,22 @@ body {
 
 }
 
+nav .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    font-size: 28px;
+  }
+  
+  nav .brand img {
+    display: block;
+    width: 300px;
+    height: 300px;
+    max-width: 300px;
+    object-fit: contain;
+  }
+
 
 
 .brand-mark {
@@ -1514,6 +1530,21 @@ footer {
 
 }
 
+/* Tamaño del logo en el footer */
+footer .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+  }
+  
+  footer .brand img {
+    display: block;
+    width: 200px;
+    height: 200px;
+    max-width: 200px;
+    object-fit: contain;
+  }
 
 
 footer p {
@@ -2050,4 +2081,6 @@ footer small {
   .hero-showcase-caption {
     display: none;
   }
+
+  
 }
