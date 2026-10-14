@@ -41,15 +41,11 @@ const demos = [
   },
 
   {
-
     type: "PELUQUERÍA · PROYECTO DEMO",
-
-    title: "Studio Hair",
-
-    text: "Servicios, galería y contacto directo por WhatsApp.",
-
+    title: "MÍA Studio",
+    text: "Diseño elegante para un salón de peluquería, con servicios, galería y reservas.",
     className: "demo-hair",
-
+    url: "https://mia-studio-fawn.vercel.app/",
   },
 
   {
@@ -301,7 +297,7 @@ export default function App() {
 
             <strong>{d.title}</strong>
 
-            <span>Proyecto demo</span>
+            <span>Ver proyecto ↗</span>
 
           </div>
 
